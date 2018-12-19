@@ -46,5 +46,5 @@ FIXME
 
 ### License
 
-GPLv3
+[MIT](LICENSE)
 
