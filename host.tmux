@@ -4,7 +4,7 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source "$CURRENT_DIR/scripts/helpers.sh"
 
-fields_interpolation=(
+host_interpolation=(
   "\#{hostname}"
   "\#{username}"
   "\#{hostname_fg_color}"
@@ -13,9 +13,9 @@ fields_interpolation=(
   "\#{username_bg_color}"
 )
 
-fields_commands=(
-  "#($CURRENT_DIR/scripts/username.sh)"
+host_commands=(
   "#($CURRENT_DIR/scripts/hostname.sh)"
+  "#($CURRENT_DIR/scripts/username.sh)"
   "#($CURRENT_DIR/scripts/hostname_fg_color.sh)"
   "#($CURRENT_DIR/scripts/hostname_bg_color.sh)"
   "#($CURRENT_DIR/scripts/username_fg_color.sh)"
@@ -30,8 +30,8 @@ set_tmux_option() {
 
 do_interpolation() {
   local all_interpolated="$1"
-  for ((i=0; i<${#cpu_commands[@]}; i++)); do
-    all_interpolated=${all_interpolated/${}}
+  for ((i=0; i<${#host_commands[@]}; i++)); do
+    all_interpolated=${all_interpolated/${host_interpolation[$i]}/${host_commands[$i]}}
   done
   echo "$all_interpolated"
 }
